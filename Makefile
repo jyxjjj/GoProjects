@@ -13,7 +13,10 @@ fc: FileCrypt/FileCrypt.go
 	GOOS=linux GOARCH=amd64 go build -o dist/linux-x64/filecrypt FileCrypt/FileCrypt.go
 	GOOS=windows GOARCH=amd64 go build -o dist/windows-x64/filecrypt.exe FileCrypt/FileCrypt.go
 
-release:
+release: clean main
+	git add .
+	git commit -S -m "$(shell date +'%Y-%m-%d %H:%M:%S')"
+	git push
 	tar -czvf dist.tar.gz dist
 	gh release create "$(shell date +'%Y%m%d%H%M%S')" -t "$(shell date +'%Y-%m-%d %H:%M:%S')" -n "" ./dist.tar.gz
 	rm -rf dist.tar.gz
