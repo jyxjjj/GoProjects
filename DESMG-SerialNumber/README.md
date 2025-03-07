@@ -1,3 +1,0 @@
-# ID
-- LEN 6-16 IN HEX
-- LEN 7-19 IN NUMBER
