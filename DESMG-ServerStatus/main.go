@@ -6,26 +6,11 @@ import (
 	"os"
 )
 
-var surl, key, debug string
+var debug string
 
 func init() {
-	flag.StringVar(&surl, "s", "", "Server URL")
-	flag.StringVar(&key, "k", "", "Sign Key")
 	flag.StringVar(&debug, "d", "false", "Debug mode")
 	flag.Parse()
-
-	if surl == "" {
-		surl = os.Getenv("SERVER_URL")
-		if surl == "" {
-			panic("SERVER_URL has not been set")
-		}
-	}
-	if key == "" {
-		key = os.Getenv("SIGN_KEY")
-		if key == "" {
-			panic("SIGN_KEY has not been set")
-		}
-	}
 	if debug == "false" || debug == "" {
 		debug = os.Getenv("DEBUG")
 		if debug == "false" || debug == "" {
@@ -36,20 +21,14 @@ func init() {
 
 func main() {
 	data := run()
-	data.Timestamp = getTimestamp(data.DeviceID)
-	sign := signData(key, data)
-	signed := SignedData{
-		Data: data,
-		Sign: sign,
-	}
-	signedData, err := json.Marshal(signed)
+	jsonData, err := json.Marshal(data)
 	if err != nil {
 		panic(err)
 	}
 	if debug == "true" {
-		println(string(signedData))
+		println(string(jsonData))
 	} else {
-		send(surl, data.DeviceID, signedData)
+		send("surl", data.DeviceID, jsonData)
 	}
 }
 
@@ -61,7 +40,6 @@ func run() MonitorData {
 		CPUNum:     GetCPUNum(),
 		CPUFreq:    GetCPUFreq(),
 		CPUUsage:   GetCPUUsage(),
-		OSName:     GetOSName(),
 		MemSize:    GetMemSize(),
 		MemUsed:    GetMemUsed(),
 		NumProcess: GetNumProcess(),

@@ -1,16 +1,13 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/host"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/process"
-	"os"
 	"path/filepath"
-	"strings"
 	"time"
 )
 
@@ -54,31 +51,6 @@ func GetCPUUsage() string {
 	}
 	pct := percent[0]
 	return removeAllRightZeroAndPointForFloatString(fmt.Sprintf("%.2f", pct))
-}
-
-func GetOSName() string {
-	file, err := os.Open("/etc/os-release")
-	if err != nil {
-		hostInfo, err := host.Info()
-		if err != nil {
-			return "Unknown"
-		}
-		return FirstUpper(hostInfo.OS) + " " + hostInfo.PlatformVersion + " " + FirstUpper(hostInfo.Platform) + " " + hostInfo.KernelArch + " " + hostInfo.KernelVersion + " " + hostInfo.Hostname
-	}
-	defer func(file *os.File) {
-		ferr := file.Close()
-		if ferr != nil {
-			panic(ferr)
-		}
-	}(file)
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.Contains(line, "PRETTY_NAME") {
-			return strings.ReplaceAll(strings.Split(line, "=")[1], "\"", "")
-		}
-	}
-	return "Unknown"
 }
 
 func GetMemSize() string {

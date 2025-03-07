@@ -6,7 +6,6 @@ type MonitorData struct {
 	CPUNum     string `json:"CPUNum"`
 	CPUFreq    string `json:"CPUFreq"`
 	CPUUsage   string `json:"CPUUsage"`
-	OSName     string `json:"OSName"`
 	MemSize    string `json:"MemSize"`
 	MemUsed    string `json:"MemUsed"`
 	NumProcess string `json:"NumProcess"`
