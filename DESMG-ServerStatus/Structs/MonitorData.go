@@ -1,4 +1,4 @@
-package main
+package Structs
 
 type MonitorData struct {
 	DeviceID   string `json:"DeviceID"`

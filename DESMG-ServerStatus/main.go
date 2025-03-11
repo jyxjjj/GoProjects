@@ -1,10 +1,13 @@
 package main
 
 import (
+	"ServerStatus/Structs"
 	"encoding/json"
 	"flag"
 	"os"
 )
+
+type MonitorData = Structs.MonitorData
 
 var debug string
 
@@ -28,7 +31,7 @@ func main() {
 	if debug == "true" {
 		println(string(jsonData))
 	} else {
-		send("surl", data.DeviceID, jsonData)
+		send("", data.DeviceID, jsonData)
 	}
 }
 

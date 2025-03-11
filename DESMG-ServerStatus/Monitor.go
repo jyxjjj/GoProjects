@@ -2,21 +2,21 @@ package main
 
 import (
 	"fmt"
-	"github.com/shirou/gopsutil/v3/cpu"
-	"github.com/shirou/gopsutil/v3/disk"
-	"github.com/shirou/gopsutil/v3/host"
-	"github.com/shirou/gopsutil/v3/mem"
-	"github.com/shirou/gopsutil/v3/process"
+	"github.com/shirou/gopsutil/v4/cpu"
+	"github.com/shirou/gopsutil/v4/disk"
+	"github.com/shirou/gopsutil/v4/host"
+	"github.com/shirou/gopsutil/v4/mem"
+	"github.com/shirou/gopsutil/v4/process"
 	"path/filepath"
 	"time"
 )
 
 func GetDeviceID() string {
-	id, err := host.HostID()
+	info, err := host.Info()
 	if err != nil {
 		return ""
 	}
-	return id
+	return info.Hostname
 }
 
 func GetCPUModel() string {
@@ -114,20 +114,20 @@ func GetDiskSize() string {
 	if err != nil {
 		return "-1"
 	}
-	total := float64(disks.Total) / 1024 / 1024 / 1024
+	total := float64(disks.Total)
 	return removeAllRightZeroAndPointForFloatString(fmt.Sprintf("%.3f", total))
 }
 
 func GetUptime() string {
 	uptime, err := host.Uptime()
 	if err != nil {
-		return "0D0H0M0S"
+		return "00:00:00:00"
 	}
 	day := uptime / 86400
 	hour := uptime % 86400 / 3600
 	minute := uptime % 3600 / 60
 	second := uptime % 60
-	return fmt.Sprintf("%dD%dH%dM%dS", day, hour, minute, second)
+	return fmt.Sprintf("%02d:%02d:%02d:%02d", day, hour, minute, second)
 }
 
 func GetIORW() []string {
@@ -160,4 +160,8 @@ func GetIORW() []string {
 		}
 	}
 	return defaultVal
+}
+
+func GetNet() {
+
 }
