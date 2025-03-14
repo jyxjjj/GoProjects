@@ -4,11 +4,13 @@ set -e
 
 PROJECT_PATH="$GOPATH/src/github.com/$(git config user.name)/GoProjects"
 ORG_NAME="DESMG"
-PROJECT_NAME="ServerStatus"
-EXECUTABLE_NAME="ServerStatus"
+PROJECT_NAME="StatusAgent"
+EXECUTABLE_NAME="StatusAgent"
 
 TARGET_ARCHS=(
     "linux/amd64"
+    "windows/amd64"
+    "darwin/arm64"
 )
 
 for arch in "${TARGET_ARCHS[@]}"; do

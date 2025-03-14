@@ -2,7 +2,10 @@ module ServerStatus
 
 go 1.24.1
 
-require github.com/shirou/gopsutil/v4 v4.25.2
+require (
+	github.com/gorilla/websocket v1.5.3
+	github.com/shirou/gopsutil/v4 v4.25.2
+)
 
 require (
 	github.com/ebitengine/purego v0.8.2 // indirect

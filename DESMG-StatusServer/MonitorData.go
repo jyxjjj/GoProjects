@@ -1,7 +1,6 @@
-package Structs
+package main
 
 type MonitorData struct {
-	DeviceID   string `json:"DeviceID"`
 	CPUModel   string `json:"CPUModel"`
 	CPUNum     string `json:"CPUNum"`
 	CPUFreq    string `json:"CPUFreq"`
@@ -16,4 +15,9 @@ type MonitorData struct {
 	IORead     string `json:"IORead"`
 	IOWrite    string `json:"IOWrite"`
 	Timestamp  string `json:"timestamp"`
+}
+
+type JsonData struct {
+	DeviceID string      `json:"DeviceID"`
+	Data     MonitorData `json:"Data"`
 }
