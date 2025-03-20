@@ -10,7 +10,6 @@ EXECUTABLE_NAME="FileCrypt"
 TARGET_ARCHS=(
     "darwin/arm64"
     "linux/amd64"
-    "windows/amd64"
 )
 
 for arch in "${TARGET_ARCHS[@]}"; do
