@@ -10,6 +10,7 @@ import (
 	"github.com/cloudflare/circl/kem/mlkem/mlkem1024"
 	"golang.org/x/crypto/argon2"
 	"io"
+	"runtime"
 	"time"
 )
 
@@ -73,7 +74,7 @@ func main() {
 			randomBytes(32),
 			uint32(4),
 			uint32(65536),
-			uint8(1),
+			uint8(runtime.NumCPU()),
 			uint32(64),
 		)
 	}
