@@ -24,51 +24,51 @@ func randomBytes(length int) []byte {
 
 func main() {
 	tsStart := time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		sha256.Sum256(randomBytes(64))
 	}
 	tsEnd := time.Now()
-	tsDuration := tsEnd.Sub(tsStart) / 10000
+	tsDuration := tsEnd.Sub(tsStart) / 100
 	println("SHA256: ", tsDuration.String())
 	tsStart = time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		sha512.Sum512(randomBytes(64))
 	}
 	tsEnd = time.Now()
-	tsDuration = tsEnd.Sub(tsStart) / 10000
+	tsDuration = tsEnd.Sub(tsStart) / 100
 	println("SHA512: ", tsDuration.String())
 	tsStart = time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		block, _ := aes.NewCipher(randomBytes(32))
 		gcm, _ := cipher.NewGCM(block)
 		nonce := randomBytes(gcm.NonceSize())
 		gcm.Seal(nil, nonce, randomBytes(32), randomBytes(32))
 	}
 	tsEnd = time.Now()
-	tsDuration = tsEnd.Sub(tsStart) / 10000
+	tsDuration = tsEnd.Sub(tsStart) / 100
 	println("AES256GCM: ", tsDuration.String())
 	tsStart = time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		scheme := kyber1024.Scheme()
 		pk, sk, _ := scheme.GenerateKeyPair()
 		ct, _, _ := scheme.Encapsulate(pk)
 		_, _ = scheme.Decapsulate(sk, ct)
 	}
 	tsEnd = time.Now()
-	tsDuration = tsEnd.Sub(tsStart) / 10000
+	tsDuration = tsEnd.Sub(tsStart) / 100
 	println("Kyber1024: ", tsDuration.String())
 	tsStart = time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		scheme := mlkem1024.Scheme()
 		pk, sk, _ := scheme.GenerateKeyPair()
 		ct, _, _ := scheme.Encapsulate(pk)
 		_, _ = scheme.Decapsulate(sk, ct)
 	}
 	tsEnd = time.Now()
-	tsDuration = tsEnd.Sub(tsStart) / 10000
-	println("ML-KEM1024: ", tsDuration.String())
+	tsDuration = tsEnd.Sub(tsStart) / 100
+	println("MLKEM1024: ", tsDuration.String())
 	tsStart = time.Now()
-	for i := 0; i < 10000; i++ {
+	for i := 0; i < 100; i++ {
 		argon2.IDKey(
 			randomBytes(32),
 			randomBytes(32),
@@ -79,6 +79,6 @@ func main() {
 		)
 	}
 	tsEnd = time.Now()
-	tsDuration = tsEnd.Sub(tsStart) / 10000
+	tsDuration = tsEnd.Sub(tsStart) / 100
 	println("Argon2ID: ", tsDuration.String())
 }
